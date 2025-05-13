@@ -33,7 +33,10 @@ public class Mole : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (gameManager.isGame)
+        {
+            Move();
+        } 
     }
 
     void OnMouseDown()

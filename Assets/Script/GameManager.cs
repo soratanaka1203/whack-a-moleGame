@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -8,14 +9,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI timeUpText;
+
 
     private int score = 0;
     private float timer = 60;
-    private bool isGame = false;
+    public bool isGame { get; private set; } = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        timeUpText.gameObject.SetActive(false);
         isGame = true;
         scoreText.text = "SCORE:" + score;
     }
@@ -23,12 +27,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-        if (timer < 0)
-        {
-            Debug.Log("time Up");
-        }
+        TimeUp();
         Timer();
     }
 
@@ -48,5 +47,19 @@ public class GameManager : MonoBehaviour
             timer -= Time.deltaTime;
             timerText.text = "TIME:" + timer;
         }
+    }
+
+    void TimeUp()
+    {
+        if (timer < 0 && isGame)
+        {
+            timeUpText.gameObject.SetActive(true);
+            isGame = false;
+        }
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
