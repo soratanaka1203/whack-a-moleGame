@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI timeUpText;
 
 
     private int score = 0;
+    static int highScore = 0;
     private float timer = 60;
     public bool isGame { get; private set; } = false;
 
@@ -40,6 +42,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void UpdateHighScore(int score)
+    {
+        if (highScore < score)
+        {
+            highScore += score;
+            highScoreText.text = "HighScore:" + score;
+        }
+    }
+
     void Timer()
     {
         if (isGame)
@@ -54,6 +65,7 @@ public class GameManager : MonoBehaviour
         if (timer < 0 && isGame)
         {
             timeUpText.gameObject.SetActive(true);
+            UpdateHighScore(score);
             isGame = false;
         }
     }
