@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TimeUp();
+        CheckTimeUp();
         Timer();
     }
 
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void TimeUp()
+    void CheckTimeUp()
     {
         if (timer < 0 && isGame)
         {
